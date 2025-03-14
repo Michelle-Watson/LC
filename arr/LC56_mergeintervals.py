@@ -1,4 +1,5 @@
 # https://leetcode.com/problems/merge-intervals/description/
+# https://www.geeksforgeeks.org/merging-intervals/
 
 class Solution(object):
     def merge(self, intervals):
@@ -6,8 +7,31 @@ class Solution(object):
         :type intervals: List[List[int]]
         :rtype: List[List[int]]
         """
-        # Implement your solution here
-        return []
+        # EDGE: empty arr
+        if not intervals:
+            return []
+
+        # Sort intervals based on the starting point
+        intervals.sort(key=lambda x: x[0])
+        # Sorting: O(n log n)
+
+        # Initialize the result with the first interval
+        res = [intervals[0]]
+        print("res", res)
+
+        # Iterating through intervals: O(n)
+        for i in range(1, len(intervals)):
+            # Compare the current interval with the last one in the result
+            if intervals[i][0] <= res[-1][1]:  # Compare with 'end' of the last interval in the result
+                # if end time of last elem in res is less then the start tiem of the interval we're checking, we need to update res
+                # There's overlap, merge the intervals = update end time
+                res[-1][1] = max(res[-1][1], intervals[i][1])  # Merge by updating the end time
+                # end time of last res = max between end time in res and end time in current interval
+            else:
+                # No overlap, just add the current interval to the result
+                res.append(intervals[i])
+
+        return res
 
 # Test cases
 if __name__ == "__main__":

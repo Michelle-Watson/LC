@@ -1,3 +1,5 @@
+# https://leetcode.com/problems/missing-number/submissions/1573084908/
+# https://www.geeksforgeeks.org/find-the-missing-number/
 class Solution(object):
     def missingNumber(self, nums):
         """

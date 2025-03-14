@@ -7,11 +7,36 @@ class Solution(object):
         :type nums: List[int]
         :rtype: List[int]
         """
-        # You can implement your solution here using a hashmap (dict) or Counter
+        counter = Counter(nums)
+        print(counter)  # prints Counter Obj {}
+        print(counter.items())  # view object that displays the key-value pairs (the items) of the Counter as tuples.
+        # ([(3, 2), (2, 1)])
+        n = len(nums)
+        min_occurrence = n//3
 
+        # Filter the keys where the value (count) is greater than min_occurrence
+        result = [key for key, value in counter.items() if value > min_occurrence]
 
-        # Placeholder for your code:
-        pass
+        """
+        # LONG WAY
+        result = []
+        for key, value in counter.items():
+            if value > min_occurrence:
+                result.append(key)
+        """
+
+        return result
+
+        # Using dict to count occurrences
+        my_dict = {}
+        res = []
+        for num in nums:
+            if num in my_dict:
+                my_dict[num] += 1
+            else:
+                my_dict[num] = 1
+        print(my_dict)
+        return res
 
 
 # Test Cases

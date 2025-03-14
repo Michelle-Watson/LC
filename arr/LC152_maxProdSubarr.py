@@ -1,12 +1,41 @@
+# https://leetcode.com/problems/maximum-product-subarray/
+# https://www.geeksforgeeks.org/maximum-product-subarray/
 class Solution(object):
     def maxProduct(self, nums):
         """
         :type nums: List[int]
         :rtype: int
         """
-        # Your solution goes here
-        max_prod = 0
-        return max_prod
+        # Initialize variables with the first element of the array
+        current_max_product = nums[0]  # This will track the maximum product at each step
+        current_min_product = nums[0]  # This will track the minimum product at each step
+        global_max_product = nums[0]  # This will store the overall maximum product we find
+
+        # Start iterating from the second element since we already initialized with the first one
+        for i in range(1, len(nums)):
+            # If the current element is negative, swap the current_max_product and current_min_product
+            # This is because multiplying a negative number can turn a negative product into a positive one
+            if nums[i] < 0:
+                current_max_product, current_min_product = current_min_product, current_max_product
+
+            # Update the current_max_product and current_min_product:
+            # current_max_product is the max of:
+            # 1. The current number itself (nums[i])
+            # 2. The product of current_max_product and nums[i]
+            current_max_product = max(nums[i], current_max_product * nums[i])
+
+            # current_min_product is the min of:
+            # 1. The current number itself (nums[i])
+            # 2. The product of current_min_product and nums[i]
+            current_min_product = min(nums[i], current_min_product * nums[i])
+
+            # Update the global_max_product to the larger of:
+            # 1. The previous global_max_product
+            # 2. The current_max_product
+            global_max_product = max(global_max_product, current_max_product)
+
+        # Return the final global_max_product, which holds the highest product we found
+        return global_max_product
 
 
 # Test cases to run your solution
